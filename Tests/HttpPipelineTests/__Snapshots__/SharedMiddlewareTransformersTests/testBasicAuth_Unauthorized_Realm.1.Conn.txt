@@ -1,0 +1,8 @@
+GET /
+
+401 Unauthorized
+Content-Length: 20
+Content-Type: text/plain
+WWW-Authenticate: Basic realm="Point-Free"
+
+Please authenticate.

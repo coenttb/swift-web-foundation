@@ -1,0 +1,7 @@
+GET /
+
+200 OK
+Content-Length: 19
+Content-Type: text/html; charset=utf-8
+
+<p>Hello, world</p>

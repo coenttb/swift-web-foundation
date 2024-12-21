@@ -1,0 +1,4 @@
+GET /
+
+200 OK
+Set-Cookie: session=aGVsbG8td29ybGQ=--4wgeyWTkB2EKsLHYK7Ao1VzjFMXeTLZHXX76XTTOBCw=; HttpOnly

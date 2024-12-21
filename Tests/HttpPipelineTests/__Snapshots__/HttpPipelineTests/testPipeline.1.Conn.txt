@@ -1,0 +1,7 @@
+GET /
+
+200 OK
+Content-Length: 12
+Content-Type: text/plain
+
+Hello, world
