@@ -1,110 +1,90 @@
-// swift-tools-version:5.10.1
+// swift-tools-version:5.10
 
-import Foundation
 import PackageDescription
 
 extension String {
-    static let favicon: Self = "Favicon"
-    static let sitemap: Self = "Sitemap"
-    static let swiftWeb: Self = "SwiftWeb"
-    static let urlFormCoding: Self = "UrlFormCoding"
+    static let webFoundation: Self = "WebFoundation"
 }
 
 extension Target.Dependency {
-    static var favicon: Self { .target(name: .favicon) }
-    static var sitemap: Self { .target(name: .sitemap) }
-    static var swiftWeb: Self { .target(name: .swiftWeb) }
-    static var urlFormCoding: Self { .target(name: .urlFormCoding) }
+    static var webFoundation: Self { .target(name: .webFoundation) }
 }
 
 extension Target.Dependency {
+    static var builders: Self { .product(name: "Builders", package: "swift-builders") }
+    static var foundationExtensions: Self { .product(name: "FoundationExtensions", package: "swift-foundation-extensions") }
+    static var emailAddress: Self { .product(name: "EmailAddress", package: "swift-emailaddress-type") }
+    static var dateParsing: Self { .product(name: "DateParsing", package: "swift-date-parsing") }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
-    static var dependenciesMacros: Self { .product(name: "DependenciesMacros", package: "swift-dependencies") }
-    static var either: Self { .product(name: "Either", package: "swift-prelude") }
+    static var dependenciesTestSupport: Self { .product(name: "DependenciesTestSupport", package: "swift-dependencies") }
+    static var domain: Self { .product(name: "Domain", package: "swift-domain-type") }
+    static var jwt: Self { .product(name: "JWT", package: "swift-jwt") }
     static var logging: Self { .product(name: "Logging", package: "swift-log") }
-    static var macroCodableKit: Self { .product(name: "MacroCodableKit", package: "macro-codable-kit") }
-    static var memberwiseInit: Self { .product(name: "MemberwiseInit", package: "swift-memberwise-init-macro") }
-    static var postgresKit: Self { .product(name: "PostgresKit", package: "postgres-kit") }
-    static var optics: Self { .product(name: "Optics", package: "swift-prelude") }
-    static var swiftHtml: Self { .product(name: "HTML", package: "swift-html") }
-    static var prelude: Self { .product(name: "Prelude", package: "swift-prelude") }
-    static var tagged: Self { .product(name: "Tagged", package: "swift-tagged") }
+    static var parsing: Self { .product(name: "Parsing", package: "swift-parsing") }
+    static var sitemap: Self { .product(name: "Sitemap", package: "swift-sitemap") }
+    static var html: Self { .product(name: "HTML", package: "swift-html") }
+    static var htmlTestSupport: Self { .product(name: "PointFreeHTMLTestSupport", package: "pointfree-html") }
+    static var unixEpoch: Self { .product(name: "UnixEpochParsing", package: "swift-date-parsing") }
+    static var urlFormCoding: Self { .product(name: "URLFormCoding", package: "swift-url-form-coding") }
+    static var urlFormCodingURLRouting: Self { .product(name: "URLFormCodingURLRouting", package: "swift-url-form-coding-url-routing") }
+    static var urlMultipartFormCodingURLRouting: Self { .product(name: "URLMultipartFormCodingURLRouting", package: "swift-url-multipart-form-coding-url-routing") }
     static var urlRouting: Self { .product(name: "URLRouting", package: "swift-url-routing") }
-    
-    static var pointfreeWeb: Self { .product(name: "PointfreeWeb", package: "pointfree-web") }
-    
-}
-
-extension [Package.Dependency] {
-    static var `default`: Self {
-        [
-            .package(url: "https://github.com/coenttb/swift-html", branch: "main"),
-            .package(url: "https://github.com/coenttb/pointfree-web", branch: "main"),
-            .package(url: "https://github.com/gohanlon/swift-memberwise-init-macro", from: "0.3.0"),
-            .package(url: "https://github.com/mikhailmaslo/macro-codable-kit.git", from: "0.3.0"),
-            .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.5"),
-            .package(url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.10.0"),
-            .package(url: "https://github.com/pointfreeco/swift-prelude.git", branch: "main"),
-            .package(url: "https://github.com/pointfreeco/swift-url-routing", from: "0.6.0"),
-            .package(url: "https://github.com/swift-server/async-http-client", from: "1.19.0"),
-            .package(url: "https://github.com/vapor/postgres-kit", from: "2.12.0"),
-        ]
-    }
 }
 
 let package = Package(
-    name: "swift-web",
+    name: "swift-web-foundation",
     platforms: [
         .macOS(.v14),
-        .iOS(.v16)
+        .iOS(.v17)
     ],
     products: [
         .library(
-            name: .swiftWeb,
+            name: .webFoundation,
             targets: [
-                .swiftWeb,
-                .favicon,
-                .sitemap,
-                .urlFormCoding,
-            ]
-        ),
-        .library(name: .favicon, targets: [.favicon]),
-        .library(name: .sitemap, targets: [.sitemap]),
-        .library(name: .urlFormCoding, targets: [.urlFormCoding]),
-    ],
-    dependencies: .default,
-    targets: [
-        .target(
-            name: .favicon,
-            dependencies: [
-                .urlRouting,
-                .swiftHtml
-            ]
-        ),
-        .target(
-            name: .urlFormCoding,
-            dependencies: [
-                .dependencies,
-                .pointfreeWeb,
-                .urlRouting
-            ]
-        ),
-        .target(
-            name: .sitemap,
-            dependencies: [
-                .memberwiseInit
-            ]
-        ),
-        .target(
-            name: .swiftWeb,
-            dependencies: [
-                .pointfreeWeb,
-                .swiftHtml,
-                .favicon,
-                .sitemap,
-                .urlFormCoding,
+                .webFoundation
             ]
         )
     ],
-    swiftLanguageVersions: [.v5]
+    dependencies: [
+        .package(url: "https://github.com/coenttb/pointfree-html", from: "2.0.0"),
+        .package(url: "https://github.com/coenttb/swift-builders", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-html", from: "0.1.2"),
+        .package(url: "https://github.com/coenttb/swift-date-parsing", from: "0.1.0"),
+        .package(url: "https://github.com/coenttb/swift-foundation-extensions", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-jwt", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-emailaddress-type", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-domain-type", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-sitemap", from: "0.0.1"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.5"),
+        .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.14.1"),
+        .package(url: "https://github.com/coenttb/swift-url-form-coding", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-url-form-coding-url-routing", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-url-multipart-form-coding-url-routing", from: "0.0.1")
+    ],
+    targets: [
+        .target(
+            name: .webFoundation,
+            dependencies: [
+                .builders,
+                .dateParsing,
+                .foundationExtensions,
+                .jwt,
+                .html,
+                .emailAddress,
+                .domain,
+                .parsing,
+                .sitemap,
+                .urlFormCoding,
+                .urlFormCodingURLRouting,
+                .urlMultipartFormCodingURLRouting,
+                .unixEpoch
+            ]
+        ),
+        .testTarget(
+            name: .webFoundation.tests,
+            dependencies: [.webFoundation, .dependenciesTestSupport, .htmlTestSupport]
+        )
+    ]
 )
+
+extension String { var tests: Self { self + " Tests" } }
