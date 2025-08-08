@@ -26,8 +26,6 @@ extension Target.Dependency {
     static var htmlTestSupport: Self { .product(name: "PointFreeHTMLTestSupport", package: "pointfree-html") }
     static var unixEpoch: Self { .product(name: "UnixEpochParsing", package: "swift-date-parsing") }
     static var urlFormCoding: Self { .product(name: "URLFormCoding", package: "swift-url-form-coding") }
-    static var urlFormCodingURLRouting: Self { .product(name: "URLFormCodingURLRouting", package: "swift-url-form-coding-url-routing") }
-    static var urlMultipartFormCodingURLRouting: Self { .product(name: "URLMultipartFormCodingURLRouting", package: "swift-url-multipart-form-coding-url-routing") }
     static var urlRouting: Self { .product(name: "URLRouting", package: "swift-url-routing") }
 }
 
@@ -57,9 +55,7 @@ let package = Package(
         .package(url: "https://github.com/coenttb/swift-sitemap", from: "0.0.1"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.5"),
         .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.14.1"),
-        .package(url: "https://github.com/coenttb/swift-url-form-coding", from: "0.0.1"),
-        .package(url: "https://github.com/coenttb/swift-url-form-coding-url-routing", from: "0.0.1"),
-        .package(url: "https://github.com/coenttb/swift-url-multipart-form-coding-url-routing", from: "0.0.1"),
+        .package(url: "https://github.com/coenttb/swift-url-form-coding", from: "0.1.0")
     ],
     targets: [
         .target(
@@ -75,8 +71,6 @@ let package = Package(
                 .parsing,
                 .sitemap,
                 .urlFormCoding,
-                .urlFormCodingURLRouting,
-                .urlMultipartFormCodingURLRouting,
                 .unixEpoch
             ]
         ),
