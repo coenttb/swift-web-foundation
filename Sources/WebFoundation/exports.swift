@@ -20,3 +20,9 @@
 @_exported import URLFormCodingURLRouting
 @_exported import URLMultipartFormCodingURLRouting
 @_exported import URLRouting
+
+extension ParserPrinter where Input == URLRequestData {
+    public func href(for route: Output) -> Href {
+        Href(self.url(for: route))
+    }
+}
