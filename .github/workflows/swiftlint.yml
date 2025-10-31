@@ -5,9 +5,15 @@ on:
 
 jobs:
   lint:
-    runs-on: macos-26
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Install SwiftLint
+        run: |
+          curl -fsSL https://github.com/realm/SwiftLint/releases/latest/download/swiftlint_linux.zip -o swiftlint.zip
+          unzip swiftlint.zip
+          sudo mv swiftlint /usr/local/bin/
+          chmod +x /usr/local/bin/swiftlint
       - name: SwiftLint
         run: swiftlint lint
         continue-on-error: true
