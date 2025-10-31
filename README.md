@@ -16,7 +16,7 @@ The package acts as a dependency consolidation layer, allowing you to import one
 - **Single Import**: Access 15+ specialized packages through one `import WebFoundation` statement
 - **Type Safety**: All included libraries provide compile-time guarantees for web standards
 - **Standard Compliance**: RFC-compliant implementations for email (RFC 5322/6531), JWT (RFC 7519), dates (RFC 2822/5322), and multipart forms (RFC 7578)
-- **Zero Configuration**: Simply add the dependency and start using all included functionality
+- **Dependency Consolidation**: Access all functionality through a single package dependency
 - **Convenience Extensions**: Provides `ParserPrinter.href(for:)` extension for generating type-safe links from routes
 
 ## Installation
@@ -245,9 +245,9 @@ let isValid = try parsedJWT.verifyAndValidate(with: verificationKey)
 
 ## Related Packages
 
-* [boiler](https://www.github.com/coenttb/boiler): The Swift web framework for building type-safe servers and websites.
-* [swift-html](https://www.github.com/coenttb/swift-html): The Swift library for domain-accurate and type-safe HTML & CSS.
-* [coenttb-com-server](https://www.github.com/coenttb/coenttb-com-server): Production server for coenttb.com built with Boiler.
+- [boiler](https://www.github.com/coenttb/boiler) - The Swift web framework for building type-safe servers and websites.
+- [swift-html](https://www.github.com/coenttb/swift-html) - The Swift library for domain-accurate and type-safe HTML & CSS.
+- [coenttb-com-server](https://www.github.com/coenttb/coenttb-com-server) - Production server for coenttb.com built with Boiler.
 
 ## License
 

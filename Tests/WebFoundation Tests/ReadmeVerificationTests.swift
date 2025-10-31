@@ -144,6 +144,31 @@ struct ReadmeVerificationTests {
         #expect(rendered.contains("container"))
     }
 
+    // MARK: - Type-Safe Routing
+
+    @Test("Type-Safe Routing - href generation (lines 93-119)")
+    func typeSafeRouting() throws {
+        enum SiteRoute {
+            case home
+            case article(id: Int)
+        }
+
+        let router = OneOf {
+            Route(.case(SiteRoute.home)) {
+                Path { "home" }
+            }
+            Route(.case(SiteRoute.article)) {
+                Path { "article"; Digits() }
+            }
+        }
+
+        let homeLink = router.href(for: .home)
+        let articleLink = router.href(for: .article(id: 42))
+
+        #expect(homeLink.rawValue.contains("/home"))
+        #expect(articleLink.rawValue.contains("/article/42"))
+    }
+
     // MARK: - Date Parsing
 
     @Test("Date Parsing - RFC 2822")
