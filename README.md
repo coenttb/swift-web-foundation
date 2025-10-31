@@ -1,69 +1,27 @@
-# swift-web-foundation: Web Development Foundation for Swift
+# swift-web-foundation
 
-`swift-web-foundation` is a glue library that consolidates essential Swift packages for web development into a single, convenient import. Rather than managing multiple dependencies, this foundation provides unified access to type-safe web standards, parsing, routing, content generation, and domain modeling tools.
+[![CI](https://github.com/coenttb/swift-web-foundation/workflows/CI/badge.svg)](https://github.com/coenttb/swift-web-foundation/actions/workflows/ci.yml)
+![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
-## Included Libraries
+A consolidated Swift package providing unified access to essential web development libraries through a single import.
 
-This foundation re-exports the following specialized packages, organized by domain:
+## Overview
 
-### **Type Safety & Domain Modeling**
+`swift-web-foundation` is a glue library that re-exports a curated collection of Swift packages for type-safe web development. Rather than managing multiple dependencies individually, this foundation provides consolidated access to web standards, parsing, routing, content generation, and domain modeling tools.
 
-- **[EmailAddress](https://github.com/coenttb/swift-emailaddress-type)** - Domain-accurate and type-safe email address handling that adheres to web standards
-- **[Domain](https://github.com/coenttb/swift-domain-type)** - Type-safe domain model consistent with web standards for reliable domain handling
-- **[JWT](https://github.com/coenttb/swift-jwt)** - Standards-compliant JSON Web Token creation, signing, and verification using Apple's Crypto framework
+The package acts as a dependency consolidation layer, allowing you to import one module and gain access to 15+ specialized libraries covering email validation, JWT handling, HTML generation, URL routing, form encoding, date parsing, and more.
 
-### **Date & Time Handling**
+## Features
 
-- **[DateParsing](https://github.com/coenttb/swift-date-parsing)** - Comprehensive date parsing for RFC 2822, RFC 5322, and Unix epoch timestamps with robust error handling
-- **[FoundationExtensions](https://github.com/coenttb/swift-foundation-extensions)** - Powerful extensions for date manipulation, validation, and formatting with intuitive operations like `date + 1.day`
-
-### **Web Standards & Routing**
-
-- **[URLFormCoding](https://github.com/coenttb/swift-url-form-coding)** - Type-safe encoding and decoding of `application/x-www-form-urlencoded` data with flexible parsing strategies
-- **[URLFormCodingURLRouting](https://github.com/coenttb/swift-url-form-coding-url-routing)** - Seamless integration between form data handling and type-safe URL routing
-- **[URLMultipartFormCodingURLRouting](https://github.com/coenttb/swift-url-multipart-form-coding-url-routing)** - RFC 7578 compliant multipart form data handling with secure file uploads and URLRouting integration
-- **[URLRouting](https://github.com/pointfreeco/swift-url-routing)** - Point-Free's powerful URL routing library for type-safe navigation
-
-### **Content Generation**
-
-- **[HTML](https://github.com/coenttb/swift-html)** - Type-safe HTML and CSS generation with SwiftUI-like syntax, supporting server-side rendering and responsive design
-- **[Sitemap](https://github.com/coenttb/swift-sitemap)** - XML sitemap generation following sitemaps.org protocol with full metadata support
-- **[Builders](https://github.com/coenttb/swift-builders)** - Result builders for creating collections and content with declarative, SwiftUI-like syntax
-
-### **Parsing & Infrastructure**
-
-- **[Parsing](https://github.com/pointfreeco/swift-parsing)** - Point-Free's composable, performant, and general-purpose parsing library for transforming unstructured data
-- **[Dependencies](https://github.com/pointfreeco/swift-dependencies)** - SwiftUI Environment-inspired dependency management for controllable and testable applications
-
-## Usage
-
-Instead of importing multiple individual packages:
-
-```swift
-import EmailAddress
-import JWT  
-import URLFormCoding
-import HTML
-import Sitemap
-// ... and many more
-```
-
-Simply import the foundation:
-
-```swift
-import WebFoundation
-
-// All functionality is now available:
-let email = EmailAddress("user@example.com")
-let jwt = try JWT.signed(/* ... */)
-let form = try URLFormDecoder().decode(LoginForm.self, from: data)
-let html = div { "Hello, World!" }
-let sitemap = Sitemap(urls: urls)
-```
+- **Single Import**: Access 15+ specialized packages through one `import WebFoundation` statement
+- **Type Safety**: All included libraries provide compile-time guarantees for web standards
+- **Standard Compliance**: RFC-compliant implementations for email (RFC 5322/6531), JWT (RFC 7519), dates (RFC 2822/5322), and multipart forms (RFC 7578)
+- **Zero Configuration**: Simply add the dependency and start using all included functionality
+- **Convenience Extensions**: Provides `ParserPrinter.href(for:)` extension for generating type-safe links from routes
 
 ## Installation
 
-To use **swift-web-foundation** in your project, add it to your `Package.swift` dependencies:
+Add `swift-web-foundation` to your `Package.swift` dependencies:
 
 ```swift
 dependencies: [
@@ -71,26 +29,230 @@ dependencies: [
 ]
 ```
 
-## Related projects
+Then add it to your target dependencies:
 
-### Boiler & coenttb
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: [
+        .product(name: "WebFoundation", package: "swift-web-foundation")
+    ]
+)
+```
 
-* [boiler](https://www.github.com/coenttb/boiler): A minimal Swift web framework for building type-safe servers
-* [swift-html](https://www.github.com/coenttb/swift-html): A Swift library for domain-accurate and type-safe HTML & CSS
-* [coenttb-com-server](https://www.github.com/coenttb/coenttb-com-server): The backend server for coenttb.com, written entirely in Swift and powered by [boiler](https://www.github.com/coenttb-server-vapor).
+## Quick Start
 
-## Feedback is Much Appreciated!
-  
-If you’re working on your own Swift web project, feel free to learn, fork, and contribute.
+Import the foundation and access all included functionality:
 
-Got thoughts? Found something you love? Something you hate? Let me know! Your feedback helps make this project better for everyone. Open an issue or start a discussion—I’m all ears.
+```swift
+import WebFoundation
 
-> [Subscribe to my newsletter](http://coenttb.com/en/newsletter/subscribe)
->
-> [Follow me on X](http://x.com/coenttb)
-> 
-> [Link on Linkedin](https://www.linkedin.com/in/tenthijeboonkkamp)
+// Email validation with RFC compliance
+let email = try EmailAddress("user@example.com")
+
+// JWT creation and verification
+let jwt = try JWT.hmacSHA256(
+    issuer: "example.com",
+    subject: "user123",
+    secretKey: "your-secret-key"
+)
+
+// Type-safe HTML generation
+let html = div {
+    h1 { "Welcome" }
+    p { "Hello, World!" }
+}
+
+// URL form encoding/decoding
+struct LoginForm: Codable {
+    let username: String
+    let password: String
+}
+let decoder = Form.Decoder()
+let form = try decoder.decode(LoginForm.self, from: formData)
+
+// Date parsing from multiple formats
+let parser2822 = RFC_2822.Date.Parser()
+let date1 = try parser2822.parse("Mon, 15 Aug 2005 15:52:01 +0000"[...])
+
+let parserUnix = Date.UnixEpoch.Parser()
+let date2 = try parserUnix.parse("1629038521"[...])
+
+// Domain validation
+let domain = try Domain("example.com")
+
+// Sitemap generation
+let sitemap = Sitemap(urls: [
+    Sitemap.URL(location: URL(string: "https://example.com/page1")!),
+    Sitemap.URL(location: URL(string: "https://example.com/page2")!)
+])
+```
+
+## Usage Examples
+
+### Type-Safe Routing with Link Generation
+
+The `ParserPrinter.href(for:)` extension method enables generating type-safe links from your route definitions:
+
+```swift
+import WebFoundation
+import URLRouting
+
+// Define your routes and create a router
+enum SiteRoute {
+    case home
+    case article(id: Int)
+}
+
+let router = OneOf {
+    Route(.case(SiteRoute.home)) {
+        Path { "home" }
+    }
+    Route(.case(SiteRoute.article)) {
+        Path { "article"; Digits() }
+    }
+}
+
+// Generate type-safe links using the href extension
+let homeLink = router.href(for: .home)
+let articleLink = router.href(for: .article(id: 42))
+```
+
+### Form Handling with Type Safety
+
+```swift
+import WebFoundation
+
+struct RegistrationForm: Codable {
+    let email: String
+    let password: String
+    let acceptTerms: Bool
+}
+
+// Decode URL-encoded form data
+let formData = "email=user@example.com&password=secret&acceptTerms=true"
+let decoder = Form.Decoder()
+let form = try decoder.decode(
+    RegistrationForm.self,
+    from: formData.data(using: .utf8)!
+)
+
+// Validate email using EmailAddress
+let validatedEmail = try EmailAddress(form.email)
+```
+
+### HTML Generation with CSS
+
+```swift
+import WebFoundation
+
+let page = html {
+    head {
+        title { "My Page" }
+        style {
+            """
+            body { font-family: system-ui; }
+            .container { max-width: 1200px; margin: 0 auto; }
+            """
+        }
+    }
+    body {
+        div {
+            h1 { "Welcome" }
+            p { "This is type-safe HTML" }
+        }
+        .class("container")
+    }
+}
+```
+
+### Date Parsing and Formatting
+
+```swift
+import WebFoundation
+
+// Parse RFC 2822 date
+let parser2822 = RFC_2822.Date.Parser()
+let rfc2822Date = try parser2822.parse("Mon, 15 Aug 2005 15:52:01 +0000"[...])
+
+// Parse RFC 5322 date
+let parser5322 = RFC_5322.Date.Parser()
+let rfc5322Date = try parser5322.parse("Fri, 21 Nov 1997 09:55:06 -0600"[...])
+
+// Parse Unix epoch
+let parserUnix = Date.UnixEpoch.Parser()
+let unixDate = try parserUnix.parse("1629038521"[...])
+
+// Use Foundation extensions for date math
+let tomorrow = Date() + 1.day
+let nextWeek = Date() + 7.days
+let nextMonth = Date() + 1.month
+```
+
+### JWT Token Management
+
+```swift
+import WebFoundation
+
+// Create JWT with HMAC-SHA256
+let jwt = try JWT.hmacSHA256(
+    issuer: "example.com",
+    subject: "user123",
+    expiresIn: 3600,
+    claims: ["name": "John Doe"],
+    secretKey: "your-secret-key"
+)
+
+// Get token string
+let tokenString = try jwt.compactSerialization()
+
+// Verify and decode JWT
+let parsedJWT = try JWT.parse(from: tokenString)
+let verificationKey = VerificationKey.symmetric(string: "your-secret-key")
+let isValid = try parsedJWT.verifyAndValidate(with: verificationKey)
+```
+
+## Included Libraries
+
+### Type Safety & Domain Modeling
+
+- **[EmailAddress](https://github.com/coenttb/swift-emailaddress-type)** - RFC 5322/6531 compliant email address validation and parsing
+- **[Domain](https://github.com/coenttb/swift-domain-type)** - Type-safe domain name validation and manipulation
+- **[JWT](https://github.com/coenttb/swift-jwt)** - RFC 7519 compliant JSON Web Token creation and verification using Apple's Crypto framework
+
+### Date & Time Handling
+
+- **[DateParsing](https://github.com/coenttb/swift-date-parsing)** - Parsers for RFC 2822, RFC 5322, and Unix epoch timestamps
+- **[FoundationExtensions](https://github.com/coenttb/swift-foundation-extensions)** - Date arithmetic (`+ 1.day`), validation, and formatting utilities
+
+### Web Standards & Routing
+
+- **[URLFormCoding](https://github.com/coenttb/swift-url-form-coding)** - Type-safe `application/x-www-form-urlencoded` encoding and decoding
+- **[URLFormCodingURLRouting](https://github.com/coenttb/swift-url-form-coding-url-routing)** - Integration layer between form encoding and URL routing
+- **[URLMultipartFormCodingURLRouting](https://github.com/coenttb/swift-url-multipart-form-coding-url-routing)** - RFC 7578 compliant multipart form data handling with URLRouting integration
+- **[URLRouting](https://github.com/pointfreeco/swift-url-routing)** - Point-Free's composable URL routing with bidirectional parsing and printing
+
+### Content Generation
+
+- **[HTML](https://github.com/coenttb/swift-html)** - Type-safe HTML and CSS generation with result builder syntax
+- **[Sitemap](https://github.com/coenttb/swift-sitemap)** - XML sitemap generation following sitemaps.org protocol
+- **[Builders](https://github.com/coenttb/swift-builders)** - Result builders for declarative collection and content construction
+
+### Parsing & Infrastructure
+
+- **[Parsing](https://github.com/pointfreeco/swift-parsing)** - Point-Free's composable parser combinator library
+- **[Dependencies](https://github.com/pointfreeco/swift-dependencies)** - Dependency injection inspired by SwiftUI Environment
+
+## Related Packages
+
+* [boiler](https://www.github.com/coenttb/boiler): The Swift web framework for building type-safe servers and websites.
+* [swift-html](https://www.github.com/coenttb/swift-html): The Swift library for domain-accurate and type-safe HTML & CSS.
+* [coenttb-com-server](https://www.github.com/coenttb/coenttb-com-server): Production server for coenttb.com built with Boiler.
 
 ## License
 
-This project is licensed under the **Apache 2.0 License**. See the [LICENSE](LICENSE).
+This project is licensed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.
+
+## Contributing
+
+Contributions are welcome. Please open an issue or submit a pull request.
