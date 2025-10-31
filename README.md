@@ -245,9 +245,29 @@ let isValid = try parsedJWT.verifyAndValidate(with: verificationKey)
 
 ## Related Packages
 
-- [boiler](https://www.github.com/coenttb/boiler) - The Swift web framework for building type-safe servers and websites.
-- [swift-html](https://www.github.com/coenttb/swift-html) - The Swift library for domain-accurate and type-safe HTML & CSS.
-- [coenttb-com-server](https://www.github.com/coenttb/coenttb-com-server) - Production server for coenttb.com built with Boiler.
+### Dependencies
+
+- [pointfree-html](https://github.com/coenttb/pointfree-html): A fork of pointfreeco/swift-html with extended functionality.
+- [swift-builders](https://github.com/coenttb/swift-builders): A Swift package with result builders for Array, Dictionary, Set, String, and Markdown.
+- [swift-date-parsing](https://github.com/coenttb/swift-date-parsing): A Swift package for parsing RFC 2822, RFC 5322, and Unix timestamp formats.
+- [swift-domain-type](https://github.com/coenttb/swift-domain-type): A Swift package with a type-safe Domain model.
+- [swift-emailaddress-type](https://github.com/coenttb/swift-emailaddress-type): A Swift package with a type-safe EmailAddress model.
+- [swift-foundation-extensions](https://github.com/coenttb/swift-foundation-extensions): A Swift package with extensions for dates, times, and date components.
+- [swift-html](https://github.com/coenttb/swift-html): The Swift library for domain-accurate and type-safe HTML & CSS.
+- [swift-jwt](https://github.com/coenttb/swift-jwt): A Swift package for creating, signing, and verifying JSON Web Tokens.
+- [swift-sitemap](https://github.com/coenttb/swift-sitemap): A Swift package for generating XML sitemaps.
+- [swift-url-form-coding](https://github.com/coenttb/swift-url-form-coding): A Swift package for type-safe web form encoding and decoding.
+- [swift-url-form-coding-url-routing](https://github.com/coenttb/swift-url-form-coding-url-routing): [Description needed for swift-url-form-coding-url-routing]
+- [swift-url-multipart-form-coding-url-routing](https://github.com/coenttb/swift-url-multipart-form-coding-url-routing): [Description needed for swift-url-multipart-form-coding-url-routing]
+
+### Used By
+
+- [coenttb-web](https://github.com/coenttb/coenttb-web): A Swift package with tools for web development building on swift-web.
+
+### Third-Party Dependencies
+
+- [pointfreeco/swift-dependencies](https://github.com/pointfreeco/swift-dependencies): A dependency management library for controlling dependencies in Swift.
+- [pointfreeco/swift-parsing](https://github.com/pointfreeco/swift-parsing): A parser combinator library for Swift.
 
 ## License
 
