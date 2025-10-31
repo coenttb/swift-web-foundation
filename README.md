@@ -257,8 +257,8 @@ let isValid = try parsedJWT.verifyAndValidate(with: verificationKey)
 - [swift-jwt](https://github.com/coenttb/swift-jwt): A Swift package for creating, signing, and verifying JSON Web Tokens.
 - [swift-sitemap](https://github.com/coenttb/swift-sitemap): A Swift package for generating XML sitemaps.
 - [swift-url-form-coding](https://github.com/coenttb/swift-url-form-coding): A Swift package for type-safe web form encoding and decoding.
-- [swift-url-form-coding-url-routing](https://github.com/coenttb/swift-url-form-coding-url-routing): [Description needed for swift-url-form-coding-url-routing]
-- [swift-url-multipart-form-coding-url-routing](https://github.com/coenttb/swift-url-multipart-form-coding-url-routing): [Description needed for swift-url-multipart-form-coding-url-routing]
+- [swift-url-form-coding-url-routing](https://github.com/coenttb/swift-url-form-coding-url-routing): Integration layer between form encoding and URL routing.
+- [swift-url-multipart-form-coding-url-routing](https://github.com/coenttb/swift-url-multipart-form-coding-url-routing): RFC 7578 compliant multipart form data handling with URLRouting integration.
 
 ### Used By
 
