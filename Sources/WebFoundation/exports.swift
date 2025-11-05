@@ -22,7 +22,7 @@
 @_exported import UnixEpochParsing
 
 extension ParserPrinter where Input == URLRequestData {
-  public func href(for route: Output) -> Href {
-    Href(self.url(for: route))
-  }
+    public func href(for route: Output) -> Href {
+        Href(self.url(for: route))
+    }
 }
