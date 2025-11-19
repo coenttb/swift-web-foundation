@@ -13,11 +13,11 @@ extension Target.Dependency {
 extension Target.Dependency {
     static var builders: Self { .product(name: "Builders", package: "swift-builders") }
     static var foundationExtensions: Self { .product(name: "FoundationExtensions", package: "swift-foundation-extensions") }
-    static var emailAddress: Self { .product(name: "EmailAddress", package: "swift-emailaddress-type") }
+    static var emailAddress: Self { .product(name: "EmailAddress", package: "swift-emailaddress-standard") }
     static var dateParsing: Self { .product(name: "DateParsing", package: "swift-date-parsing") }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
     static var dependenciesTestSupport: Self { .product(name: "DependenciesTestSupport", package: "swift-dependencies") }
-    static var domain: Self { .product(name: "Domain", package: "swift-domain-type") }
+    static var domain: Self { .product(name: "Domain", package: "swift-domain-standard") }
     static var jwt: Self { .product(name: "JWT", package: "swift-jwt") }
     static var logging: Self { .product(name: "Logging", package: "swift-log") }
     static var parsing: Self { .product(name: "Parsing", package: "swift-parsing") }
@@ -52,8 +52,8 @@ let package = Package(
         .package(url: "https://github.com/coenttb/swift-date-parsing", from: "0.1.0"),
         .package(url: "https://github.com/coenttb/swift-foundation-extensions", from: "0.0.1"),
         .package(url: "https://github.com/coenttb/swift-jwt", from: "0.0.1"),
-        .package(url: "https://github.com/swift-standards/swift-emailaddress-type", from: "0.0.1"),
-        .package(url: "https://github.com/swift-standards/swift-domain-type", from: "0.0.1"),
+        .package(url: "https://github.com/swift-standards/swift-emailaddress-standard", from: "0.0.1"),
+        .package(url: "https://github.com/swift-standards/swift-domain-standard", from: "0.0.1"),
         .package(url: "https://github.com/coenttb/swift-sitemap", from: "0.0.1"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.5"),
         .package(url: "https://github.com/pointfreeco/swift-parsing.git", from: "0.14.1"),
